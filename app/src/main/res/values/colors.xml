@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
+    <color name="bak">#30D5C8</color>
+    <color name="white">#FFF</color>
+    <color name="black">#000000</color>
+    <color name="orange">#FFA500</color>
+    <color name="red">#FF0000</color>
+    <color name="passer0">#909399</color>
+    <color name="passer1">#67C23A</color>
+    <color name="hide">#9370DB</color>
+    <color name="relate">#2196F3</color>
+    <color name="adventurer">#20B2AA</color>
+    <color name="coin">#2196F3</color>
+    <color name="statusNormal">#67C23A</color>
+    <color name="statusHide">#F56C6C</color>
+    <color name="rateCount">#3377AA</color>
+    <color name="textUser">#6495ED</color>
+
+</resources>

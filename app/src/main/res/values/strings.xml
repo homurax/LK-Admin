@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">LKAdmin</string>
+    <string name="login">登录</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="home">主页</string>
+    <string name="ban">BAN</string>
+    <string name="hide_all">隐藏全部</string>
+    <string name="search">搜索</string>
+    <string name="user_placeholder">用户名/uid</string>
+    <string name="select_page">跳页</string>
+    <string name="article_placeholder">搜索内容</string>
+    <string name="comment_placeholder">搜索内容</string>
+    <string name="score_placeholder">搜索内容</string>
+    <string name="series_placeholder">搜索内容</string>
+    <string name="lk_admin">LK-Admin</string>
+    <string name="next_page">下一页</string>
+    <string name="previous_page">上一页</string>
+    <string name="link_comment">查看回帖</string>
+    <string name="link_reply">楼中楼</string>
+    <string name="coin_modify">轻币修改</string>
+    <string name="coin_modify_reason">请输入增加/扣除轻币的原因</string>
+    <string name="coin_modify_placeholder">正数增加/负数扣除/不得扣为负数</string>
+    <string name="send_title_placeholder">消息标题</string>
+    <string name="send_content_placeholder">消息内容</string>
+    <string name="add_receiver_placeholder">请填写收信人uid</string>
+    <string name="from">From</string>
+    <string name="time">Time</string>
+    <string name="to">To</string>
+    <string name="delete">删除</string>
+    <string name="colon">:</string>
+    <string name="send_message">发送消息</string>
+    <string name="system">System</string>
+    <string name="add_receiver">添加收信人</string>
+    <string name="send">发送</string>
+    <string name="remove">移除</string>
+    <string name="all_score">集合评分</string>
+    <string name="user_score">用户评分</string>
+    <string name="detail">详情</string>
+    <string name="series_articles">合集文章</string>
+    <string name="series_users">合集管理人</string>
+    <string name="unfold">展开合集</string>
+    <string name="edit">编辑</string>
+    <string name="greater_than"><![CDATA[>]]></string>
+    <string name="score">评分</string>
+
+    <string-array name="article_query_type_array">
+        <item>无</item>
+        <item>帖子ID</item>
+        <item>用户UID</item>
+        <item>帖子名</item>
+    </string-array>
+
+    <string-array name="comment_query_type_array">
+        <item>无</item>
+        <item>帖子ID</item>
+        <item>回帖ID</item>
+        <item>用户UID</item>
+        <item>内容</item>
+    </string-array>
+
+    <string-array name="score_query_type_array">
+        <item>无</item>
+        <item>用户UID</item>
+        <item>合集ID</item>
+        <item>评分内容</item>
+    </string-array>
+
+    <string-array name="series_query_type_array">
+        <item>无</item>
+        <item>合集ID</item>
+        <item>合集名</item>
+    </string-array>
+
+</resources>

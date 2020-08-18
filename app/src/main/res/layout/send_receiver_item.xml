@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:layout_margin="5dp"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/uidText"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="@drawable/text_item"
+        android:hint="@string/add_receiver_placeholder"
+        android:inputType="number"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColor="?android:attr/textColorPrimary" />
+
+    <Button
+        android:id="@+id/removeReceiverButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/btn_ban"
+        android:text="@string/remove"
+        android:textColor="@color/red"
+        android:textSize="15sp" />
+
+</LinearLayout>

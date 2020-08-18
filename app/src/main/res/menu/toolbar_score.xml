@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/previousPage"
+        android:icon="@drawable/ic_baseline_arrow_back_24"
+        android:title="@string/previous_page"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/nextPage"
+        android:icon="@drawable/ic_baseline_arrow_forward_24"
+        android:title="@string/next_page"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/jumpPage"
+        android:icon="@drawable/ic_baseline_swap_horiz_24"
+        android:title="@string/select_page"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_24dp"
+        android:title="@string/search"
+        app:showAsAction="ifRoom" />
+
+</menu>
