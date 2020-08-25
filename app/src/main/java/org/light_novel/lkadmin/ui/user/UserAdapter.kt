@@ -32,14 +32,59 @@ class UserAdapter(val context: Context, private val users: List<LKUser>) :
         val createDateText: TextView = view.findViewById(R.id.createDateText)
         val banButton: Button = view.findViewById(R.id.banButton)
         val hideButton: Button = view.findViewById(R.id.hideButton)
-        val adventurerButton: Button = view.findViewById(R.id.adventurerButton)
-        val coinButton: Button = view.findViewById(R.id.coinButton)
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
         val holder = ViewHolder(view)
+
+        holder.coinText.setOnClickListener {
+            val position = holder.adapterPosition
+            val user = users[position]
+
+            val contentView = LayoutInflater.from(context).inflate(R.layout.user_coin_modify, parent, false)
+            val coinInfoText: TextView = contentView.findViewById(R.id.coinInfoText)
+            val userCoinInfo = "当前用户轻币数量: ${user.coin}"
+            coinInfoText.text = userCoinInfo
+            val coinModifyText: EditText = contentView.findViewById(R.id.coinModifyText)
+            val reasonText: EditText = contentView.findViewById(R.id.reasonText)
+
+            AlertDialog.Builder(context).apply {
+                setTitle("轻币修改")
+                setCancelable(false)
+                setView(contentView)
+                setPositiveButton("确认", null)
+                setNegativeButton("取消") { dialog, which ->
+                }
+                val dialog = create()
+                dialog.show()
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener label@{
+                    val coinModify = coinModifyText.editableText.toString()
+                    val reason = reasonText.editableText.toString()
+                    if (coinModify.isEmpty()) {
+                        "修改数量不得为空".showToast()
+                        return@label
+                    }
+                    val coin = coinModify.toInt()
+                    if (coin == 0) {
+                        "修改数量不可为零".showToast()
+                        return@label
+                    }
+                    if (coin < 0 && (user.coin + coin < 0)) {
+                        "不得扣为负数".showToast()
+                        return@label
+                    }
+                    if (reason.trim().isEmpty()) {
+                        "修改原因不得为空".showToast()
+                        return@label
+                    }
+                    (parent.context as UserActivity).coinModify(user, coin, reason)
+                    dialog.dismiss()
+                }
+                // show()
+            }
+        }
         holder.banButton.setOnClickListener {
             val position = holder.adapterPosition
             val user = users[position]
@@ -88,7 +133,7 @@ class UserAdapter(val context: Context, private val users: List<LKUser>) :
                 show()
             }
         }
-        holder.adventurerButton.setOnClickListener {
+        holder.passerText.setOnClickListener {
             val position = holder.adapterPosition
             val user = users[position]
             AlertDialog.Builder(context).apply {
@@ -104,52 +149,7 @@ class UserAdapter(val context: Context, private val users: List<LKUser>) :
                 show()
             }
         }
-        holder.coinButton.setOnClickListener {
-            val position = holder.adapterPosition
-            val user = users[position]
 
-            val contentView = LayoutInflater.from(context).inflate(R.layout.user_coin_modify, parent, false)
-            val coinInfoText: TextView = contentView.findViewById(R.id.coinInfoText)
-            val userCoinInfo = "当前用户轻币数量: ${user.coin}"
-            coinInfoText.text = userCoinInfo
-            val coinModifyText: EditText = contentView.findViewById(R.id.coinModifyText)
-            val reasonText: EditText = contentView.findViewById(R.id.reasonText)
-
-            AlertDialog.Builder(context).apply {
-                setTitle("轻币修改")
-                setCancelable(false)
-                setView(contentView)
-                setPositiveButton("确认", null)
-                setNegativeButton("取消") { dialog, which ->
-                }
-                val dialog = create()
-                dialog.show()
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener label@{
-                    val coinModify = coinModifyText.editableText.toString()
-                    val reason = reasonText.editableText.toString()
-                    if (coinModify.isEmpty()) {
-                        "修改数量不得为空".showToast()
-                        return@label
-                    }
-                    val coin = coinModify.toInt()
-                    if (coin == 0) {
-                        "修改数量不可为零".showToast()
-                        return@label
-                    }
-                    if (coin < 0 && (user.coin + coin < 0)) {
-                        "不得扣为负数".showToast()
-                        return@label
-                    }
-                    if (reason.trim().isEmpty()) {
-                        "修改原因不得为空".showToast()
-                        return@label
-                    }
-                    (parent.context as UserActivity).coinModify(user, coin, reason)
-                    dialog.dismiss()
-                }
-                // show()
-            }
-        }
         return holder
     }
 
@@ -176,7 +176,6 @@ class UserAdapter(val context: Context, private val users: List<LKUser>) :
         holder.ipText.text = user.ip
         holder.createDateText.text = LocalDateTime.parse(user.createDate, DateTimeFormatter.ISO_DATE_TIME).format(formatter)
         holder.banButton.text = if (user.banEndDate == "false") "BAN" else "UNBAN"
-        holder.adventurerButton.text = if (user.passer == 0) "授予勇者" else "恢复平民"
     }
 
     override fun getItemCount() = users.size

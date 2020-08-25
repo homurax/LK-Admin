@@ -77,6 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/coin"
                     android:gravity="center_vertical" />
             </LinearLayout>
 
@@ -138,33 +139,6 @@
                     android:background="@drawable/btn_hide"
                     android:text="@string/hide_all"
                     android:textColor="@color/hide"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/adventurerButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/btn_adventurer"
-                    android:textColor="@color/adventurer"
-                    android:textSize="15sp" />
-
-                <Button
-                    android:id="@+id/coinButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/btn_coin"
-                    android:text="@string/coin_modify"
-                    android:textColor="@color/coin"
                     android:textSize="15sp" />
             </LinearLayout>
 
