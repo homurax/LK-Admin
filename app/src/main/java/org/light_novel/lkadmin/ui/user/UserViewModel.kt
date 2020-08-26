@@ -21,6 +21,12 @@ class UserViewModel : ViewModel() {
 
     private val coinModifyLiveData = MutableLiveData<ModifyCoin>()
 
+    private val linkArticleLiveData = MutableLiveData<Int>()
+
+    private val linkCommentLiveData = MutableLiveData<Int>()
+
+    private val linkReplyLiveData = MutableLiveData<Int>()
+
     private val headers = mapOf("token" to getToken(), "signature" to "{}".sign())
 
 
@@ -89,5 +95,32 @@ class UserViewModel : ViewModel() {
 
     fun coinModify(modifyCoin: ModifyCoin) {
         coinModifyLiveData.value = modifyCoin
+    }
+
+    val linkArticleResult = Transformations.switchMap(linkArticleLiveData) {
+        val searchMap = mutableMapOf("search_type" to "2", "page" to "1", "query" to it.toString())
+        Repository.articlePage(searchMap, headers)
+    }
+
+    fun linkArticle(uid: Int) {
+        linkArticleLiveData.value = uid
+    }
+
+    val linkCommentResult = Transformations.switchMap(linkCommentLiveData) {
+        val searchMap = mutableMapOf("datatype" to "comments", "qtype" to "3", "page" to "1", "query" to it.toString())
+        Repository.commentPage(searchMap, headers)
+    }
+
+    fun linkComment(uid: Int) {
+        linkCommentLiveData.value = uid
+    }
+
+    val linkReplyResult = Transformations.switchMap(linkReplyLiveData) {
+        val searchMap = mutableMapOf("datatype" to "replies", "qtype" to "3", "page" to "1", "query" to it.toString())
+        Repository.replyPage(searchMap, headers)
+    }
+
+    fun linkReply(uid: Int) {
+        linkReplyLiveData.value = uid
     }
 }

@@ -16,6 +16,7 @@
     <string name="lk_admin">LK-Admin</string>
     <string name="next_page">下一页</string>
     <string name="previous_page">上一页</string>
+    <string name="link_article">查看主题</string>
     <string name="link_comment">查看回帖</string>
     <string name="link_reply">楼中楼</string>
     <string name="coin_modify">轻币修改</string>

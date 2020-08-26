@@ -133,6 +133,7 @@ class ArticleActivity : AppCompatActivity() {
                     startActivity<CommentActivity>(this) {
                         putExtra("show_name", getPermissionName(13))
                         putExtra("comment_page", commentPage)
+                        putExtra("q_type", "1")
                     }
                 } else {
                     "尚无回帖".showToast()
@@ -212,8 +213,16 @@ class ArticleActivity : AppCompatActivity() {
             refresh()
         })
 
-
-        search()
+        val articlePage = intent.getParcelableExtra("article_page") as? ArticlePage
+        if (articlePage != null) {
+            viewModel.searchType = intent.getStringExtra("search_type")?.toInt()
+            when (viewModel.searchType) {
+                2 -> viewModel.query = articlePage.articles[0].uid.toString()
+            }
+            refresh(articlePage)
+        } else {
+            search()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

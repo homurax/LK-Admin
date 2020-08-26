@@ -58,10 +58,12 @@ class ArticleGroup(
     val aid: Int,
     val gif: Int,
     @SerializedName("group_name") val groupName: String
-) :
-    Parcelable
+) : Parcelable
 
 // article
+@Parcelize
+class ArticleAuthor(val uid: Int, val nickname: String, val avatar: String) : Parcelable
+
 @Parcelize
 class Article(
     val aid: Int,
@@ -73,11 +75,17 @@ class Article(
     val mask: Int,
     @SerializedName("only_passer") val onlyPasser: Int,
     val banner: String,
-    val author: LKUser,
+    val author: ArticleAuthor,
     val group: ArticleGroup
 ) : Parcelable
 
-class ArticlePage(val count: Int, val pageSize: Int, val msg: String?, var articles: List<Article>)
+@Parcelize
+class ArticlePage(
+    val count: Int,
+    val pageSize: Int,
+    val msg: String?,
+    var articles: List<Article>
+) : Parcelable
 
 
 // comment

@@ -19,7 +19,7 @@ private val permissionMap = mapOf(
     8 to "APP推荐管理",
     9 to "PC推荐管理",
     10 to "用户信息管理",
-    12 to "主帖管理",
+    12 to "主题管理",
     13 to "回帖管理",
     14 to "楼中楼管理",
     15 to "系统通知",
@@ -58,9 +58,21 @@ fun getConfigProperty(key: String) = properties.getProperty(key) ?: ""
  */
 object WhiteInfo {
 
-    val whiteUidList = getConfigProperty("whitelistUid").split(",")
+    val whiteUidList = getConfigProperty("whitelistUid").let {
+        if (it.isEmpty()) {
+            listOf()
+        } else {
+            it.split(",")
+        }
+    }
 
-    val whiteNameList = getConfigProperty("whitelistUserName").split(",")
+    val whiteNameList = getConfigProperty("whitelistUserName").let {
+        if (it.isEmpty()) {
+            listOf()
+        } else {
+            it.split(",")
+        }
+    }
 }
 
 fun isWhitelistUser(uid: Int) = WhiteInfo.whiteUidList.contains(uid.toString())

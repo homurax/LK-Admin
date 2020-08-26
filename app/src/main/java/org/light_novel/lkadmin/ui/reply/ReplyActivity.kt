@@ -189,8 +189,10 @@ class ReplyActivity : AppCompatActivity() {
 
         val replyPage = intent.getParcelableExtra("reply_page") as? ReplyPage
         if (replyPage != null) {
-            viewModel.qType = "1"
-            viewModel.query = replyPage.replies[0].tid.toString()
+            viewModel.qType = intent.getStringExtra("q_type") ?: ""
+            when (viewModel.qType) {
+                "1" -> viewModel.query = replyPage.replies[0].tid.toString()
+            }
 
             viewModel.totalCount = replyPage.count
             viewModel.totalPage = (replyPage.count + viewModel.pageSize - 1) / viewModel.pageSize

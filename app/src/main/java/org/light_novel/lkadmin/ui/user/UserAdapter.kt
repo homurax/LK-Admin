@@ -32,6 +32,9 @@ class UserAdapter(val context: Context, private val users: List<LKUser>) :
         val createDateText: TextView = view.findViewById(R.id.createDateText)
         val banButton: Button = view.findViewById(R.id.banButton)
         val hideButton: Button = view.findViewById(R.id.hideButton)
+        val linkArticleButton: Button = view.findViewById(R.id.linkArticleButton)
+        val linkCommentButton: Button = view.findViewById(R.id.linkCommentButton)
+        val linkReplyButton: Button = view.findViewById(R.id.linkReplyButton)
     }
 
 
@@ -149,6 +152,21 @@ class UserAdapter(val context: Context, private val users: List<LKUser>) :
                 show()
             }
         }
+        holder.linkArticleButton.setOnClickListener {
+            val position = holder.adapterPosition
+            val user = users[position]
+            (parent.context as UserActivity).linkArticle(user.uid)
+        }
+        holder.linkCommentButton.setOnClickListener {
+            val position = holder.adapterPosition
+            val user = users[position]
+            (parent.context as UserActivity).linkComment(user.uid)
+        }
+        holder.linkReplyButton.setOnClickListener {
+            val position = holder.adapterPosition
+            val user = users[position]
+            (parent.context as UserActivity).linkReply(user.uid)
+        }
 
         return holder
     }
@@ -172,7 +190,8 @@ class UserAdapter(val context: Context, private val users: List<LKUser>) :
             "普通会员"
         }
         // holder.passerText.setBackgroundColor(android.graphics.Color.GRAY)
-        holder.coinText.text = user.coin.toString()
+        val showCoin = "轻币: ${user.coin}"
+        holder.coinText.text = showCoin
         holder.ipText.text = user.ip
         holder.createDateText.text = LocalDateTime.parse(user.createDate, DateTimeFormatter.ISO_DATE_TIME).format(formatter)
         holder.banButton.text = if (user.banEndDate == "false") "BAN" else "UNBAN"

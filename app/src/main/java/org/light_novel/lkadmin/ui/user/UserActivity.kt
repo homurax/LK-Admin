@@ -16,13 +16,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_user.*
 import org.light_novel.lkadmin.R
-import org.light_novel.lkadmin.extension.cutManage
-import org.light_novel.lkadmin.extension.hideKeyboard
-import org.light_novel.lkadmin.extension.showKeyboard
-import org.light_novel.lkadmin.extension.showToast
+import org.light_novel.lkadmin.extension.*
 import org.light_novel.lkadmin.logic.model.LKUser
 import org.light_novel.lkadmin.logic.model.ModifyCoin
 import org.light_novel.lkadmin.logic.model.UserPage
+import org.light_novel.lkadmin.logic.model.getPermissionName
+import org.light_novel.lkadmin.ui.article.ArticleActivity
+import org.light_novel.lkadmin.ui.comment.CommentActivity
+import org.light_novel.lkadmin.ui.reply.ReplyActivity
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.abs
@@ -125,6 +126,63 @@ class UserActivity : AppCompatActivity() {
             msg?.msg?.showToast(Toast.LENGTH_LONG)
             refresh()
         })
+        viewModel.linkArticleResult.observe(this, Observer { result ->
+            val articlePage = result.getOrNull()
+            if (articlePage != null) {
+                if (articlePage.articles.isNotEmpty()) {
+                    startActivity<ArticleActivity>(this) {
+                        putExtra("show_name", getPermissionName(12))
+                        putExtra("article_page", articlePage)
+                        putExtra("search_type", "2")
+                    }
+
+                } else {
+                    "尚无主题".showToast()
+                }
+            } else {
+                "请求失败".showToast()
+                Log.d(TAG, "ArticlePage is null")
+                result.exceptionOrNull()?.printStackTrace()
+            }
+        })
+        viewModel.linkCommentResult.observe(this, Observer { result ->
+            val commentPage = result.getOrNull()
+            if (commentPage != null) {
+                if (commentPage.comments.isNotEmpty()) {
+                    startActivity<CommentActivity>(this) {
+                        putExtra("show_name", getPermissionName(13))
+                        putExtra("comment_page", commentPage)
+                        putExtra("q_type", "3")
+                    }
+                } else {
+                    "尚无回帖".showToast()
+                }
+            } else {
+                "请求失败".showToast()
+                Log.d(TAG, "CommentPage is null")
+                result.exceptionOrNull()?.printStackTrace()
+            }
+        })
+        viewModel.linkReplyResult.observe(this, Observer { result ->
+            val replyPage = result.getOrNull()
+            if (replyPage != null) {
+                if (replyPage.replies.isNotEmpty()) {
+                    startActivity<ReplyActivity>(this) {
+                        putExtra("show_name", getPermissionName(14))
+                        putExtra("reply_page", replyPage)
+                        putExtra("q_type", "3")
+                    }
+                } else {
+                    "尚无回帖".showToast()
+                }
+            } else {
+                "请求失败".showToast()
+                Log.d(TAG, "ReplyPage is null")
+                result.exceptionOrNull()?.printStackTrace()
+            }
+        })
+
+
 
         val userPage = intent.getParcelableExtra("user_page") as? UserPage
         if (userPage != null) {
@@ -283,4 +341,17 @@ class UserActivity : AppCompatActivity() {
             )
         )
     }
+
+    fun linkArticle(uid: Int) {
+        viewModel.linkArticle(uid)
+    }
+
+    fun linkComment(uid: Int) {
+        viewModel.linkComment(uid)
+    }
+
+    fun linkReply(uid: Int) {
+        viewModel.linkReply(uid)
+    }
+
 }

@@ -125,6 +125,7 @@ class CommentActivity : AppCompatActivity() {
                     startActivity<ReplyActivity>(this) {
                         putExtra("show_name", getPermissionName(14))
                         putExtra("reply_page", replyPage)
+                        putExtra("q_type", "1")
                     }
                 } else {
                     "尚无回帖".showToast()
@@ -207,8 +208,10 @@ class CommentActivity : AppCompatActivity() {
 
         val commentPage = intent.getParcelableExtra("comment_page") as? CommentPage
         if (commentPage != null) {
-            viewModel.qType = "1"
-            viewModel.query = commentPage.comments[0].pid.toString()
+            viewModel.qType =  intent.getStringExtra("q_type") ?: ""
+            when (viewModel.qType) {
+                "1" -> viewModel.query = commentPage.comments[0].pid.toString()
+            }
             refresh(commentPage)
         } else {
             search()
