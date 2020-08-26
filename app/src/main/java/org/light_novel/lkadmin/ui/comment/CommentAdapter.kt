@@ -21,6 +21,7 @@ class CommentAdapter(val context: Context, private val comments: List<Comment>) 
         val titleText: TextView = view.findViewById(R.id.titleText)
         val tidText: TextView = view.findViewById(R.id.tidText)
         val authorText: TextView = view.findViewById(R.id.authorText)
+        val authorUidText: TextView = view.findViewById(R.id.authorUidText)
         val timeText: TextView = view.findViewById(R.id.timeText)
         val statusText: TextView = view.findViewById(R.id.statusText)
         val contentText: TextView = view.findViewById(R.id.contentText)
@@ -35,8 +36,7 @@ class CommentAdapter(val context: Context, private val comments: List<Comment>) 
         holder.authorText.setOnClickListener {
             val position = holder.adapterPosition
             val comment = comments[position]
-            val nickname = comment.author.nickname
-            (parent.context as CommentActivity).findCommentAuthor(nickname)
+            (parent.context as CommentActivity).findCommentAuthor(comment.uid)
         }
         holder.hideButton.setOnClickListener {
             val position = holder.adapterPosition
@@ -55,8 +55,7 @@ class CommentAdapter(val context: Context, private val comments: List<Comment>) 
         holder.scoreButton.setOnClickListener {
             val position = holder.adapterPosition
             val comment = comments[position]
-            val nickname = comment.author.nickname
-            (parent.context as CommentActivity).findOneUser(nickname)
+            (parent.context as CommentActivity).findOneUser(comment.uid)
         }
         return holder
     }
@@ -71,8 +70,9 @@ class CommentAdapter(val context: Context, private val comments: List<Comment>) 
         holder.titleText.text = comment.article.title
         val showTid = "No.${comment.tid}"
         holder.tidText.text = showTid
-        // val showName = "${comment.author.nickname} [No.${comment.author.uid}]"
         holder.authorText.text = comment.author.nickname
+        val showName = "[No.${comment.uid}]"
+        holder.authorUidText.text = showName
         holder.timeText.text = LocalDateTime.parse(comment.time, DateTimeFormatter.ISO_DATE_TIME).format(formatter)
         holder.contentText.text = comment.content
         holder.statusText.text = if (comment.status == 0) {

@@ -324,12 +324,12 @@ class ReplyActivity : AppCompatActivity() {
         viewModel.replyHide(status, tid, rid, content)
     }
 
-    fun findReplyAuthor(nickname: String) {
-        viewModel.findReplyAuthor(nickname)
+    fun findReplyAuthor(uid: Int) {
+        viewModel.findReplyAuthor(uid)
     }
 
-    fun findOneUser(nickname: String) {
-        viewModel.findOneUser(nickname)
+    fun findOneUser(uid: Int) {
+        viewModel.findOneUser(uid)
     }
 
     fun coinModify(user: LKUser, coin: Int, reason: String) {

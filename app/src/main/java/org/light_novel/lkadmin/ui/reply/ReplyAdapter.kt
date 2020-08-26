@@ -21,6 +21,7 @@ class ReplyAdapter(val context: Context, private val replies: List<Reply>) :
         val titleText: TextView = view.findViewById(R.id.titleText)
         val tidText: TextView = view.findViewById(R.id.tidText)
         val authorText: TextView = view.findViewById(R.id.authorText)
+        val authorUidText: TextView = view.findViewById(R.id.authorUidText)
         val ridText: TextView = view.findViewById(R.id.ridText)
         val statusText: TextView = view.findViewById(R.id.statusText)
         val timeText: TextView = view.findViewById(R.id.timeText)
@@ -35,8 +36,7 @@ class ReplyAdapter(val context: Context, private val replies: List<Reply>) :
         holder.authorText.setOnClickListener {
             val position = holder.adapterPosition
             val reply = replies[position]
-            val nickname = reply.author.nickname
-            (parent.context as ReplyActivity).findReplyAuthor(nickname)
+            (parent.context as ReplyActivity).findReplyAuthor(reply.uid)
         }
         holder.hideButton.setOnClickListener {
             val position = holder.adapterPosition
@@ -50,8 +50,7 @@ class ReplyAdapter(val context: Context, private val replies: List<Reply>) :
         holder.scoreButton.setOnClickListener {
             val position = holder.adapterPosition
             val reply = replies[position]
-            val nickname = reply.author.nickname
-            (parent.context as ReplyActivity).findOneUser(nickname)
+            (parent.context as ReplyActivity).findOneUser(reply.uid)
         }
         return holder
     }
@@ -67,8 +66,9 @@ class ReplyAdapter(val context: Context, private val replies: List<Reply>) :
         holder.tidText.text = showTid
         val showRid = "#${reply.rid}L"
         holder.ridText.text = showRid
-        // val showName = "${reply.author.nickname} [No.${reply.author.uid}]"
         holder.authorText.text = reply.author.nickname
+        val showName = "[No.${reply.uid}]"
+        holder.authorUidText.text = showName
         holder.timeText.text = LocalDateTime.parse(reply.time, DateTimeFormatter.ISO_DATE_TIME).format(formatter)
         holder.statusText.text = if (reply.status == 0) {
             holder.statusText.setTextColor(ContextCompat.getColor(context, R.color.statusNormal))

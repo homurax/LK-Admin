@@ -360,12 +360,12 @@ class ArticleActivity : AppCompatActivity() {
         viewModel.articleTop(aid, lastTime, sendMsg)
     }
 
-    fun findArticleAuthor(nickname: String) {
-        viewModel.findArticleAuthor(nickname)
+    fun findArticleAuthor(uid: Int) {
+        viewModel.findArticleAuthor(uid)
     }
 
-    fun findOneUser(nickname: String) {
-        viewModel.findOneUser(nickname)
+    fun findOneUser(uid: Int) {
+        viewModel.findOneUser(uid)
     }
 
     fun coinModify(user: LKUser, coin: Int, reason: String) {

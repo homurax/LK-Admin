@@ -343,12 +343,12 @@ class CommentActivity : AppCompatActivity() {
         viewModel.linkReply(tid)
     }
 
-    fun findCommentAuthor(nickname: String) {
-        viewModel.findCommentAuthor(nickname)
+    fun findCommentAuthor(uid: Int) {
+        viewModel.findCommentAuthor(uid)
     }
 
-    fun findOneUser(nickname: String) {
-        viewModel.findOneUser(nickname)
+    fun findOneUser(uid: Int) {
+        viewModel.findOneUser(uid)
     }
 
     fun coinModify(user: LKUser, coin: Int, reason: String) {

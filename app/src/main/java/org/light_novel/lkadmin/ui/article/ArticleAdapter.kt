@@ -26,6 +26,7 @@ class ArticleAdapter(val context: Context, private val articles: List<Article>) 
         val maskText: TextView = view.findViewById(R.id.maskText)
         val onlyPasser: TextView = view.findViewById(R.id.onlyPasser)
         val authorText: TextView = view.findViewById(R.id.authorText)
+        val authorUidText: TextView = view.findViewById(R.id.authorUidText)
         val timeText: TextView = view.findViewById(R.id.timeText)
         val lastTimeText: TextView = view.findViewById(R.id.lastTimeText)
         val hideButton: Button = view.findViewById(R.id.hideButton)
@@ -40,9 +41,7 @@ class ArticleAdapter(val context: Context, private val articles: List<Article>) 
         holder.authorText.setOnClickListener {
             val position = holder.adapterPosition
             val article = articles[position]
-            val nickname = article.author.nickname
-            // val uid = article.author.uid
-            (parent.context as ArticleActivity).findArticleAuthor(nickname)
+            (parent.context as ArticleActivity).findArticleAuthor(article.uid)
         }
         holder.hideButton.setOnClickListener {
             val position = holder.adapterPosition
@@ -75,8 +74,7 @@ class ArticleAdapter(val context: Context, private val articles: List<Article>) 
         holder.scoreButton.setOnClickListener {
             val position = holder.adapterPosition
             val article = articles[position]
-            val nickname = article.author.nickname
-            (parent.context as ArticleActivity).findOneUser(nickname)
+            (parent.context as ArticleActivity).findOneUser(article.uid)
         }
         return holder
     }
@@ -112,10 +110,10 @@ class ArticleAdapter(val context: Context, private val articles: List<Article>) 
             holder.onlyPasser.background = ContextCompat.getDrawable(context, R.drawable.text_passer1)
             "勇者可见"
         }
-        // val showName = "${article.author.nickname} [No.${article.author.uid}]"
-        // val showName = "${article.author.nickname} >"
         // holder.authorText.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         holder.authorText.text = article.author.nickname
+        val showUid = "[No.${article.uid}]"
+        holder.authorUidText.text = showUid
         holder.timeText.text = LocalDateTime.parse(article.time, DateTimeFormatter.ISO_DATE_TIME).format(formatter)
         holder.lastTimeText.text = LocalDateTime.parse(article.lastTime, DateTimeFormatter.ISO_DATE_TIME).format(formatter)
 

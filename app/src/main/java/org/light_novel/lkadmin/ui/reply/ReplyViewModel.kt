@@ -18,9 +18,9 @@ class ReplyViewModel : ViewModel() {
 
     private val hideLiveData = MutableLiveData<HideReply>()
 
-    private val authorLiveData = MutableLiveData<String>()
+    private val authorLiveData = MutableLiveData<Int>()
 
-    private val userLiveData = MutableLiveData<String>()
+    private val userLiveData = MutableLiveData<Int>()
 
     private val coinModifyLiveData = MutableLiveData<ModifyCoin>()
 
@@ -68,21 +68,21 @@ class ReplyViewModel : ViewModel() {
     }
 
     val authorResult = Transformations.switchMap(authorLiveData) {
-        val searchMap = mutableMapOf("page" to "1", "query" to it)
-        Repository.findOneInUserPage(searchMap, headers)
+        val searchMap = mutableMapOf("page" to "1", "query" to it.toString())
+        Repository.userPage(searchMap, headers)
     }
 
-    fun findReplyAuthor(nickname: String) {
-        authorLiveData.value = nickname
+    fun findReplyAuthor(uid: Int) {
+        authorLiveData.value = uid
     }
 
     val userResult = Transformations.switchMap(userLiveData) {
-        val searchMap = mutableMapOf("page" to "1", "query" to it)
+        val searchMap = mutableMapOf("page" to "1", "query" to it.toString())
         Repository.findOneUser(searchMap, headers)
     }
 
-    fun findOneUser(nickname: String) {
-        userLiveData.value = nickname
+    fun findOneUser(uid: Int) {
+        userLiveData.value = uid
     }
 
     val coinModifyResult = Transformations.switchMap(coinModifyLiveData) {

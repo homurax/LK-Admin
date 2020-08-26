@@ -112,29 +112,16 @@ object Repository {
             }
         }
 
-    fun findOneInUserPage(searchMap: Map<String, String>, headers: Map<String, String>) =
-        fire(Dispatchers.IO) {
-            val nickname = searchMap["query"]
-            val userPage = LKNetwork.userPage(searchMap, headers)
-            if (userPage.msg == null) {
-                userPage.users = userPage.users.filter { it.nickname == nickname }.toList()
-                Result.success(userPage)
-            } else {
-                userPage.msg.showToast()
-                Result.failure(RuntimeException("Response message: ${userPage.msg}"))
-            }
-        }
-
     fun findOneUser(searchMap: Map<String, String>, headers: Map<String, String>) =
         fire(Dispatchers.IO) {
-            val nickname = searchMap["query"]
+            val uid = searchMap["query"]?.toInt()
             val userPage = LKNetwork.userPage(searchMap, headers)
             if (userPage.msg == null) {
-                val user = userPage.users.find { it.nickname == nickname }
+                val user = userPage.users.find { it.uid == uid }
                 if (user != null) {
                     Result.success(user)
                 } else {
-                    Result.failure(RuntimeException("Response message: Can not find $nickname in UserPage"))
+                    Result.failure(RuntimeException("Response message: Can not find $uid in UserPage"))
                 }
             } else {
                 userPage.msg.showToast()
