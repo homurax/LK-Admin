@@ -49,6 +49,12 @@ object Repository {
             Result.success(msg)
         }
 
+    fun userArticleGroup(uid: Int, headers: Map<String, String>) =
+        fire(Dispatchers.IO) {
+            val userArticleGroup = LKNetwork.userArticleGroup(uid, headers)
+            Result.success(userArticleGroup)
+        }
+
     fun commentPage(searchMap: Map<String, String>, headers: Map<String, String>) =
         fire(Dispatchers.IO) {
             if ((searchMap["qtype"] ?: "" == "3") and isWhitelistUser(searchMap["query"] ?: "")) {

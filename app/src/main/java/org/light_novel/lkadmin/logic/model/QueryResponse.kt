@@ -54,6 +54,29 @@ class ModifyCoinInfo(
 
 // group
 @Parcelize
+class ArticleSeries(
+    val sid: Int,
+    val name: String,
+    val gid: Int
+) : Parcelable
+
+@Parcelize
+class ForumGroup(
+    val gid: Int,
+    @SerializedName("parent_gid") val parentGid: Int,
+    val name: String,
+    @SerializedName("cover_type") val coverType: Int,
+    @SerializedName("sub_groups") val subGroups: List<ForumGroup>?
+) : Parcelable
+
+@Parcelize
+class UserArticleGroup (
+    val series: List<ArticleSeries>,
+    val groups: List<ForumGroup>,
+    @SerializedName("sub_groups") val subGroups: List<ForumGroup>
+) : Parcelable
+
+@Parcelize
 class ArticleGroup(
     val aid: Int,
     val gif: Int,
@@ -87,7 +110,6 @@ class ArticlePage(
     var articles: List<Article>
 ) : Parcelable
 
-
 // comment
 @Parcelize
 class CommentAuthor(val uid: Int, val nickname: String) : Parcelable
@@ -115,7 +137,6 @@ class CommentPage(
     var comments: List<Comment>
 ) : Parcelable
 
-
 // reply
 @Parcelize
 class Reply(
@@ -138,7 +159,6 @@ class ReplyPage(
     @SerializedName("comments") var replies: List<Reply>
 ) : Parcelable
 
-
 // message
 @Parcelize
 class Message(
@@ -158,7 +178,6 @@ class MessagePage(
     val rows: List<Message>,
     val msg: String?
 ) : Parcelable
-
 
 // score
 @Parcelize
@@ -186,7 +205,6 @@ class ScorePage(
     var rows: List<Score>,
     val msg: String?
 ) : Parcelable
-
 
 // series
 @Parcelize

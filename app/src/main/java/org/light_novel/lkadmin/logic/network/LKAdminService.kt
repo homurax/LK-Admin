@@ -26,6 +26,9 @@ interface LKAdminService {
     @PATCH(LKAdminApi.ARTICLE_URL + "/{aid}")
     fun articleTop(@Body top: TopArticle, @Path("aid") aid: String, @HeaderMap headers: Map<String, String>): Call<Msg>
 
+    @GET(LKAdminApi.ARTICLE_URL + "/groups/{uid}")
+    fun userArticleGroup(@Path("uid") uid: Int, @HeaderMap headers: Map<String, String>): Call<UserArticleGroup>
+
 
     /**
      * Comment

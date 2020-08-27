@@ -22,6 +22,8 @@ object LKNetwork {
 
     suspend fun articleTop(top: TopArticle, aid: String, headers: Map<String, String>) = service.articleTop(top, aid, headers).await()
 
+    suspend fun userArticleGroup(uid: Int, headers: Map<String, String>) = service.userArticleGroup(uid, headers).await()
+
     suspend fun commentPage(searchMap: Map<String, String>, headers: Map<String, String>) = service.commentPage(searchMap, headers).await()
 
     suspend fun commentHide(hideComment: HideComment, tid: String, headers: Map<String, String>) = service.commentHide(hideComment, tid, headers).await()
